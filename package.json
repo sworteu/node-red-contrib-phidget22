@@ -3,7 +3,7 @@
   "version": "2.0.1",
   "description": "Provides access to input, output, and sensor channels from Phidgets devices.",
   "dependencies": {
-    "phidget22-net": "^3.17.4"
+    "phidget22-net": "^3.25.1"
   },
   "devDependencies": {
     "@types/node": "^12.20.16",
@@ -50,6 +50,7 @@
       "phidget22-humiditysensor": "./dist/phidget22-humiditysensor.js",
       "phidget22-ir": "./dist/phidget22-ir.js",
       "phidget22-lcd": "./dist/phidget22-lcd.js",
+      "phidget22-ledarray": "./dist/phidget22-ledarray.js",
       "phidget22-lightsensor": "./dist/phidget22-lightsensor.js",
       "phidget22-magnetometer": "./dist/phidget22-magnetometer.js",
       "phidget22-motorpositioncontroller": "./dist/phidget22-motorpositioncontroller.js",

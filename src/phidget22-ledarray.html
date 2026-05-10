@@ -1,0 +1,144 @@
+<script type="text/javascript">
+  RED.nodes.registerType('phidget22-ledarray', {
+    category: 'Phidgets',
+    color: '#a6bbcf',
+    defaults: {
+      name: { required: false },
+      channel: { value: 0 },
+      deviceSerialNumber: { value: -1 },
+      isHubPortDevice: { value: false },
+      hubPort: { value: 0 },
+      debug: { value: false },
+      brightness: { value: 1 },
+      colorOrder: { value: 2 },
+      gamma: { value: 2.2 },
+      powerEnabled: { value: true },
+      openTimeout: { value: '5000' },
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'phidgetlogo.png',
+    label: function () {
+      return this.name || `LEDArray(${this.channel})`;
+    },
+    paletteLabel: 'LEDArray',
+    oneditprepare: function () {
+      const prevColorOrder = this.colorOrder;
+
+      $.getScript('phidget22/js/phidget22.min.js').done(function () {
+        for (const key in phidget22.LEDArrayColorOrder) {
+          if (Number.isNaN(Number(key))) {
+            $('#node-input-colorOrder').append(new Option(key, phidget22.LEDArrayColorOrder[key]));
+          }
+        }
+        $('#node-input-colorOrder').val(prevColorOrder);
+      });
+    },
+  });
+</script>
+
+<script type="text/x-red" data-template-name="phidget22-ledarray">
+  <div class="form-row">
+    <label for="node-input-name"><i class="icon-tag"></i> Display Name</label>
+    <input type="text" id="node-input-name" placeholder="Custom Display Name">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-colorOrder"><i class="icon-tag"></i> Color Order</label>
+    <select id="node-input-colorOrder"></select>
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-brightness"><i class="icon-tag"></i> Brightness</label>
+    <input type="text" id="node-input-brightness">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-gamma"><i class="icon-tag"></i> Gamma</label>
+    <input type="text" id="node-input-gamma">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-powerEnabled"><i class="icon-tag"></i> Power Enabled</label>
+    <input type="checkbox" style="width:auto" id="node-input-powerEnabled">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-channel"><i class="icon-tag"></i> Channel</label>
+    <input type="text" id="node-input-channel">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-deviceSerialNumber"><i class="icon-tag"></i> Serial #</label>
+    <input type="text" id="node-input-deviceSerialNumber">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-isHubPortDevice" style="width:270px"><i class="icon-tag"></i>Using a VINT Port in LEDArray mode?</label>
+    <input type="checkbox" style="width:auto" id="node-input-isHubPortDevice">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-hubPort"><i class="icon-tag"></i> Hub Port</label>
+    <input type="text" id="node-input-hubPort">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-openTimeout"><i class="icon-tag"></i> Open Timeout (ms)</label>
+    <input type="text" id="node-input-openTimeout">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-debug" style="width:270px"><i class="icon-tag"></i>Debug messages</label>
+    <input type="checkbox" style="width:auto" id="node-input-debug">
+  </div>
+</script>
+
+<script type="text/x-red" data-help-name="phidget22-ledarray">
+  <p>
+    Opens a Phidget LEDArray object for the LED0100_0 Addressable LED Phidget, allowing you
+    to control addressable LEDs by color, brightness, gamma, color order, and animations.
+  </p>
+
+  <p>
+    Methods can be invoked with the method name as topic and method arguments set on
+    msg.payload. For example, msg.topic="setLED" and
+    msg.payload={"address":0,"color":{"r":255,"g":0,"b":0},"fadeTime":0}.
+  </p>
+
+  <p>
+    Phidgets API reference available here: https://www.phidgets.com/?view=api&lang=JavaScript
+  </p>
+
+  <p>Supported methods:</p>
+  <ul>
+    <li>setAnimation</li>
+    <li>getMinAddress</li>
+    <li>getMaxAddress</li>
+    <li>getMinAnimationID</li>
+    <li>getMaxAnimationID</li>
+    <li>getMinAnimationPatternCount</li>
+    <li>getMaxAnimationPatternCount</li>
+    <li>getBrightness</li>
+    <li>setBrightness</li>
+    <li>getMinBrightness</li>
+    <li>getMaxBrightness</li>
+    <li>clearLEDs</li>
+    <li>getColorOrder</li>
+    <li>setColorOrder</li>
+    <li>getMinFadeTime</li>
+    <li>getMaxFadeTime</li>
+    <li>getGamma</li>
+    <li>setGamma</li>
+    <li>getMinGamma</li>
+    <li>getMaxGamma</li>
+    <li>setLED</li>
+    <li>getMinLEDCount</li>
+    <li>getMaxLEDCount</li>
+    <li>setLEDs</li>
+    <li>getPowerEnabled</li>
+    <li>setPowerEnabled</li>
+    <li>stopAnimation</li>
+    <li>synchronizeAnimations</li>
+  </ul>
+</script>
